@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Messages</title>
+</head>
+<body>
+    <h1>Текущий пользователь: [[${name}]]</h1>
+    <a th:href="@{/index}">Сменить имя </a>
+    <form th:action="@{/messages}" method="get" style="margin-top:20px">
+        <div><label>Автор: <input type="text" name="filter"><input type="submit" value="Поиск"></label></div>
+    </form>
+    <table border="1" style="margin-top:20px">
+        <tr>
+            <td>ID</td>
+            <td>Сообщение</td>
+            <td>Автор</td>
+        </tr>
+        <tr th:each = "message : ${messages}">
+            <td th:text="${message.id}"></td>
+            <td th:text="${message.text}"></td>
+            <td th:text="${message.author}"></td>
+        </tr>
+    </table>
+    <form th:action="@{/messages}" method="post" th:object="${message}">
+        <div><textarea rows="1" placeholder="Ваше сообщение: " required style="resize:none; height:200px; width:500px; margin-top:20px" th:field="*{text}"></textarea></div>
+        <div><input type="submit" value="Отправить"></div>
+    </form>
+</body>
+</html>
